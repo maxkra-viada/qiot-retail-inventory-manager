@@ -1,1 +1,1 @@
-# qiot-retail-inventory-management
+# qiot-retail-inventory-manager
