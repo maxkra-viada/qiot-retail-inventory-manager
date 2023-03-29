@@ -8,11 +8,10 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -26,14 +25,13 @@ public class ApiResource {
 
 	private Logger LOGGER = LoggerFactory.getLogger(ApiResource.class);
 
-	@PersistenceContext
-	private EntityManager em;
+	@Inject
+	private DatabaseTableProducts productTable;
 
 	@GET
 	@Path("/product/all")
 	public List<ProductEntity> all() {
-		return em.createNamedQuery(ProductEntity.NQ_FIND_ALL, ProductEntity.class)
-				.getResultList();
+		return productTable.find(ProductEntity.NQ_FIND_ALL).list();
 	}
 
 	class CreateProductRequest {
@@ -53,7 +51,7 @@ public class ApiResource {
 		product.priceInCents = req.priceInCents;
 		product.uuid = UUID.randomUUID().toString();
 
-		em.persist(product);
+		productTable.persist(product);
 
 		return product;
 	}
@@ -64,21 +62,20 @@ public class ApiResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ProductEntity getProductByTitle(String title) {
 		LOGGER.info("fetching product: " + title);
+		Map<String, String> params = Map.of("title", title);
 
-		return em.createNamedQuery(ProductEntity.NQ_FIND_BY_TITLE, ProductEntity.class)
-				.setParameter("title", title)
-				.getSingleResult();
+		return productTable.find(ProductEntity.NQ_FIND_BY_TITLE, params).singleResult();
 	}
 
 	@DELETE
 	@Path("/product")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ProductEntity deleteProductByTitle(String uuid) {
-		ProductEntity product = em.find(ProductEntity.class, uuid);
+		ProductEntity product = productTable.findById(UUID.fromString(uuid));
 
 		LOGGER.info("deleting product: " + product.title);
 
-		em.remove(product);
+		productTable.delete(product);
 
 		return product;
 	}
