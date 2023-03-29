@@ -7,21 +7,46 @@ function createProduct() {
   form.reset();
 
   req = {
-    "name": productName,
-    "price": productPrice,
+    "title": productName,
+    "priceInCents": productPrice,
   }
 
-  fetch("/api/create", {
+  fetch("/api/product", {
     "method": "POST",
     "body": JSON.stringify(req),
     "header": {
       'Content-Type': 'application/json'
     },
-  }).then(
-    // TODO
-  ).catch(err => {
-    // TODO
+  }).then(() => {
+    document.getElementById("createSuccess").className = "";
+    document.getElementById("createFailed").className = "hidden";
+  }
+  ).catch(() => {
+    document.getElementById("createFailed").className = "";
+    document.getElementById("createSuccess").className = "hidden";
   });
+
+  console.log(productName, productPrice);
+}
+
+function getProducts() {
+  let list = document.getElementById("productList");
+
+  list.reset();
+
+  fetch("/api/product/all", {
+    "method": "GET",
+    "header": {
+      'Content-Type': 'application/json'
+    },
+  }).then((response) => {
+    response.array.forEach(element => {
+      let li = document.createElement('li');
+      li.innerHTML = element.title + ": " + element.priceInCents;
+      list.appendChild(li);
+    });
+  }
+  ).catch(() => {});
 
   console.log(productName, productPrice);
 }

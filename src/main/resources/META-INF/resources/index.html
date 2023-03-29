@@ -30,7 +30,14 @@
 				</fieldset>
 
 				<button onClick = "createProduct()">Create</button>
+
+				<span id="createSuccess" style="color:darkgreen;" class="hidden">Success!</span>
+				<span id="createFailed" style="color:red;" class="hidden">Failed!</span>
 			</form>
+		</section>
+		<section>
+			<button onClick = "getProducts()">fetch products</button>
+			<ul id="productList"></ul>
 		</section>
 	</body>
 </html>
