@@ -8,10 +8,8 @@ import javax.persistence.Table;
 
 @Entity(name="Product")
 @Table(name="products")
-@NamedQuery(name = ProductEntity.NQ_FIND_ALL, query = "SELECT p from Product p")
 @NamedQuery(name = ProductEntity.NQ_FIND_BY_TITLE, query = "SELECT p from Product p WHERE p.title = :title")
 public class ProductEntity {
-	public static final String NQ_FIND_ALL = "ProductEntity.NQ_FIND_ALL";
 	public static final String NQ_FIND_BY_TITLE = "ProductEntity.NQ_FIND_BY_TITLE";
 
 

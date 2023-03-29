@@ -30,8 +30,9 @@ public class ApiResource {
 
 	@GET
 	@Path("/product/all")
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<ProductEntity> all() {
-		return productTable.find(ProductEntity.NQ_FIND_ALL).list();
+		return productTable.findAll().list();
 	}
 
 	class CreateProductRequest {
