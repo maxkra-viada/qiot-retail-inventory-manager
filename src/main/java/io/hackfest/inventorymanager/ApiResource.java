@@ -9,8 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,7 +26,7 @@ public class ApiResource {
 
 	private Logger LOGGER = LoggerFactory.getLogger(ApiResource.class);
 
-	@Inject
+	@PersistenceContext
 	private EntityManager em;
 
 	@GET
