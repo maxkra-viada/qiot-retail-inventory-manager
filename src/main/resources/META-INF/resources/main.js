@@ -32,8 +32,6 @@ function createProduct() {
 function getProducts() {
   let list = document.getElementById("productList");
 
-  list.reset();
-
   fetch("/api/product/all", {
     "method": "GET",
     "header": {
