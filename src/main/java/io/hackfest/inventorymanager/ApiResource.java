@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -72,7 +71,7 @@ public class ApiResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional
 	public ProductEntity deleteProductByTitle(String uuid) {
-		ProductEntity product = productTable.findById(UUID.fromString(uuid));
+		ProductEntity product = productTable.findById(uuid);
 
 		LOGGER.info("deleting product: " + product.title);
 
