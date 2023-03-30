@@ -33,8 +33,9 @@ public class ApiResource {
 	@GET
 	@Path("/product/all")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional
 	public List<ProductEntity> all() {
-		return productTable.findAll().list();
+		return productTable.listAll();
 	}
 
 	@POST
@@ -62,9 +63,8 @@ public class ApiResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ProductEntity getProductByTitle(String title) {
 		LOGGER.info("fetching product: " + title);
-		Map<String, String> params = Map.of("title", title);
 
-		return productTable.find(ProductEntity.NQ_FIND_BY_TITLE_QUERY, params).singleResult();
+		return productTable.findByTitle(title);
 	}
 
 	@DELETE

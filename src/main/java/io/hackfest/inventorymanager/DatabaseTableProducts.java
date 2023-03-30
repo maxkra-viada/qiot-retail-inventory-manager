@@ -9,5 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class DatabaseTableProducts implements PanacheRepositoryBase<ProductEntity, UUID> {
-
+    public ProductEntity findByTitle(String title){
+        return find("title", title).singleResult();
+    }
 }
