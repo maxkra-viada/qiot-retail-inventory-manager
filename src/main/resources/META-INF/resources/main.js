@@ -1,11 +1,11 @@
 // initial calls
 
-document.addEventListener('click', () => {
+document.addEventListener("click", () => {
   document.getElementById("createSuccess").className = "hidden";
   document.getElementById("createFailed").className = "hidden";
 });
 
-this.getProducts();
+document.addEventListener("DOMContentLoaded", this.getProducts);
 
 // function definitions
 
