@@ -15,7 +15,7 @@ function createProduct() {
   request = {
     "title": productName,
     "priceInCents": parseInt(productPrice*100),
-    "quantity": quantity,
+    "quantity": +quantity,
   }
 
   fetch("/api/product", {
