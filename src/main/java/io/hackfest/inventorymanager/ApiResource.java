@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.hackfest.inventorymanager.models.ProductEntity;
+import io.hackfest.inventorymanager.models.ProductRequest;
 
 @Path("/api")
 public class ApiResource {
@@ -35,23 +36,17 @@ public class ApiResource {
 		return productTable.findAll().list();
 	}
 
-	class CreateProductRequest {
-		String title;
-		int priceInCents;
-		int quantity;
-	}
-
 	@POST
 	@Path("/product")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ProductEntity createProduct(CreateProductRequest req) {
-		LOGGER.info("creating product: " + req.title);
+	public ProductEntity createProduct(ProductRequest req) {
+		LOGGER.info("creating product: " + req.title());
 
 		ProductEntity product = new ProductEntity();
-		product.title = req.title;
-		product.priceInCents = req.priceInCents;
-		product.quantity = req.quantity;
+		product.title = req.title();
+		product.priceInCents = req.priceInCents();
+		product.quantity = req.quantity();
 		product.uuid = UUID.randomUUID().toString();
 
 		productTable.persist(product);
