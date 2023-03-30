@@ -64,7 +64,7 @@ public class ApiResource {
 		LOGGER.info("fetching product: " + title);
 		Map<String, String> params = Map.of("title", title);
 
-		return productTable.find(ProductEntity.NQ_FIND_BY_TITLE, params).singleResult();
+		return productTable.find(ProductEntity.NQ_FIND_BY_TITLE_QUERY, params).singleResult();
 	}
 
 	@DELETE
