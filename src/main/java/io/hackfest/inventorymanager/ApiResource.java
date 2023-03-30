@@ -37,7 +37,8 @@ public class ApiResource {
 
 	class CreateProductRequest {
 		String title;
-		float priceInCents;
+		int priceInCents;
+		int quantity;
 	}
 
 	@POST
@@ -50,6 +51,7 @@ public class ApiResource {
 		ProductEntity product = new ProductEntity();
 		product.title = req.title;
 		product.priceInCents = req.priceInCents;
+		product.quantity = req.quantity;
 		product.uuid = UUID.randomUUID().toString();
 
 		productTable.persist(product);

@@ -20,5 +20,8 @@ public class ProductEntity {
 	public String title;
 
 	@Column
-	public float priceInCents;
+	public int priceInCents;
+
+	@Column
+	public int quantity;
 }
