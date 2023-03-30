@@ -53,9 +53,9 @@ function getProducts() {
       list.innerHTML = "";
       json?.array?.forEach(element => {
         const li = document.createElement('li');
+        list.appendChild(li);
         li.innerHTML = element.quantity + "x " + element.title + " ("
             + Number.parseFloat(element.priceInCents/100).toFixed(2) + "€)";
-        list.appendChild(li);
       });
     }
   });
