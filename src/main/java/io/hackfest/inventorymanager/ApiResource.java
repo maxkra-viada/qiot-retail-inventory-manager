@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,7 @@ public class ApiResource {
 	@Path("/product")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional
 	public ProductEntity createProduct(ProductRequest req) {
 		LOGGER.info("creating product: " + req.title());
 
@@ -68,6 +70,7 @@ public class ApiResource {
 	@DELETE
 	@Path("/product")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional
 	public ProductEntity deleteProductByTitle(String uuid) {
 		ProductEntity product = productTable.findById(UUID.fromString(uuid));
 
