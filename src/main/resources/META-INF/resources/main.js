@@ -21,7 +21,7 @@ function createProduct() {
   fetch("/api/product", {
     "method": "POST",
     "body": JSON.stringify(request),
-    "header": {
+    "headers": {
       'Content-Type': 'application/json'
     },
   })
@@ -43,7 +43,7 @@ function getProducts() {
 
   fetch("/api/product/all", {
     "method": "GET",
-    "header": {
+    "headers": {
       'Content-Type': 'application/json'
     },
   }).then((response) => {
