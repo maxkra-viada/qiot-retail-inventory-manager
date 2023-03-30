@@ -4,15 +4,15 @@ document.addEventListener('click', () => {
 });
 
 function createProduct() {
-  let form = document.getElementById("createProduct");
+  const form = document.getElementById("createProduct");
 
-  let productName = form.querySelector("[name=productName]").value;
-  let productPrice = form.querySelector("[name=productPrice]").value;
-  let quantity = form.querySelector("[name=productQuantity]").value;
+  const productName = form.querySelector("[name=productName]").value;
+  const productPrice = form.querySelector("[name=productPrice]").value;
+  const quantity = form.querySelector("[name=productQuantity]").value;
 
   form.reset();
 
-  req = {
+  request = {
     "title": productName,
     "priceInCents": parseInt(productPrice*100),
     "quantity": quantity,
@@ -20,24 +20,26 @@ function createProduct() {
 
   fetch("/api/product", {
     "method": "POST",
-    "body": JSON.stringify(req),
+    "body": JSON.stringify(request),
     "header": {
       'Content-Type': 'application/json'
     },
-  }).then(() => {
+  })
+  .then(response => response.ok ? response.json() : Promise.reject(response))
+  .then(_ => {
+    console.log("created product: ",request);
     document.getElementById("createSuccess").className = "";
   }
-  ).catch(() => {
+  ).catch(_ => {
+    console.log("couldnt create product: ",request);
     document.getElementById("createFailed").className = "";
   });
-
-  console.log(productName, productPrice);
 
   this.getProducts();
 }
 
 function getProducts() {
-  let list = document.getElementById("productList");
+  const list = document.getElementById("productList");
 
   fetch("/api/product/all", {
     "method": "GET",
@@ -45,14 +47,13 @@ function getProducts() {
       'Content-Type': 'application/json'
     },
   }).then((response) => {
-    response.array.forEach(element => {
-      let li = document.createElement('li');
+    response.ok && response.json().array.forEach(element => {
+      const li = document.createElement('li');
       li.innerHTML = element.quantity + "x " + element.title + " ("
           + Number.parseFloat(element.priceInCents/100).toFixed(2) + "€)";
       list.appendChild(li);
     });
-  }
-  ).catch(() => {});
+  });
 
   console.log(productName, productPrice);
 }
