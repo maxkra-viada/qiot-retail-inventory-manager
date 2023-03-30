@@ -50,7 +50,8 @@ class InventoryUI {
     }).then((response) => {
       response.array.forEach(element => {
         let li = document.createElement('li');
-        li.innerHTML = element.quantity + "x " + element.title + " (" + element.priceInCents/100 + "€)";
+        li.innerHTML = element.quantity + "x " + element.title + " ("
+            + Number.parseFloat(element.priceInCents/100).toFixed(2) + "€)";
         list.appendChild(li);
       });
     }
