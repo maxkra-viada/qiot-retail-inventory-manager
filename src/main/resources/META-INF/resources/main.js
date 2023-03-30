@@ -8,7 +8,7 @@ function createProduct() {
 
   let productName = form.querySelector("[name=productName]").value;
   let productPrice = form.querySelector("[name=productPrice]").value;
-  let quantity = form.querySelector("[name=quantity]").value;
+  let quantity = form.querySelector("[name=productQuantity]").value;
 
   form.reset();
 
