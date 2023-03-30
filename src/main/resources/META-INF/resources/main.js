@@ -1,7 +1,13 @@
+// initial calls
+
 document.addEventListener('click', () => {
   document.getElementById("createSuccess").className = "hidden";
   document.getElementById("createFailed").className = "hidden";
 });
+
+this.getProducts();
+
+// function definitions
 
 function createProduct() {
   const form = document.getElementById("createProduct");
