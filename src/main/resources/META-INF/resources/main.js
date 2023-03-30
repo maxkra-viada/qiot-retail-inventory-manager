@@ -46,17 +46,15 @@ function getProducts() {
     "headers": {
       "Content-Type": "application/json",
     },
-  }).then((response) => {
-    const json = response.json();
-    
-    if(response.ok) {
-      list.innerHTML = "";
-      json?.array?.forEach(element => {
-        const li = document.createElement('li');
-        list.appendChild(li);
-        li.innerHTML = element.quantity + "x " + element.title + " ("
-            + Number.parseFloat(element.priceInCents/100).toFixed(2) + "€)";
-      });
-    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    list.innerHTML = "";
+    data?.forEach(element => {
+      const li = document.createElement('li');
+      list.appendChild(li);
+      li.innerHTML = element.quantity + "x " + element.title + " ("
+          + Number.parseFloat(element.priceInCents/100).toFixed(2) + "€)";
+    });
   });
 }
