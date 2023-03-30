@@ -22,7 +22,7 @@ function createProduct() {
     "method": "POST",
     "body": JSON.stringify(request),
     "headers": {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
   })
   .then(response => response.ok ? response.json() : Promise.reject(response))
@@ -44,16 +44,14 @@ function getProducts() {
   fetch("/api/product/all", {
     "method": "GET",
     "headers": {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
   }).then((response) => {
-    response.ok && response.json().array.forEach(element => {
+    response.ok && response.json() && response.json().array.forEach(element => {
       const li = document.createElement('li');
       li.innerHTML = element.quantity + "x " + element.title + " ("
           + Number.parseFloat(element.priceInCents/100).toFixed(2) + "€)";
       list.appendChild(li);
     });
   });
-
-  console.log(productName, productPrice);
 }
